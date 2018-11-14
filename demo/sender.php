@@ -4,8 +4,8 @@ use mvc_framework\core\queues\traits\Queue;
 
 require_once __DIR__.'/autoload.php';
 
-$queue_email = \mvc_framework\core\queues\traits\Queue::instance('email', Queue::$SEND);
-$queue_email->send(
+$queue_email_sender = \mvc_framework\core\queues\traits\Queue::instance('email', Queue::$SEND);
+$queue_email_sender->send(
 	[
 		'email' => 'nicolachoquet06250@gmail.com',
 		'objet' => 'Salutation',
@@ -13,7 +13,7 @@ $queue_email->send(
 	]
 );
 
-$queue_email->send(
+$queue_email_sender->send(
 	[
 		'email' => 'nicolachoquet06250@gmail.com',
 		'objet' => 'Salutation 2',
@@ -21,7 +21,7 @@ $queue_email->send(
 	]
 );
 
-$queue_email->send(
+$queue_email_sender->send(
 	[
 		'email' => 'nicolachoquet06250@gmail.com',
 		'objet' => 'Salutation 3',
@@ -29,7 +29,7 @@ $queue_email->send(
 	]
 );
 
-$queue_email->send(
+$queue_email_sender->send(
 	[
 		'email' => 'nicolachoquet06250@gmail.com',
 		'objet' => 'Salutation 4',
