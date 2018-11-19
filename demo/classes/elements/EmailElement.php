@@ -2,12 +2,10 @@
 
 namespace mvc_framework\core\queues\queues_classes;
 
+use mvc_framework\core\queues\classes\QueueElement;
 
-use mvc_framework\core\queues\traits\QueueElement;
-
-class EmailElement {
-	use QueueElement;
-	private $to, $from, $content, $object;
+class EmailElement extends QueueElement {
+	protected $to, $from, $content, $object;
 	public function __construct($element) {
 		parent::__construct($element);
 		$this->to = $this->get('to');
@@ -18,11 +16,20 @@ class EmailElement {
 
 	public function execute() {
 		$headers = [
-			'From' => $this->from,
-			'Reply-To' => $this->from,
-			'X-Mailer' => 'PHP/' . phpversion()
+			'Content-type: text/html; charset=utf-8',
+			'From: '.$this->from,
+			'Reply-To: '.$this->from,
+			'X-Mailer: PHP/' . phpversion()
 		];
 
-		mail($this->to, $this->object, str_replace("\n", '<br>', $this->content), $headers);
+		$sended = mail(
+			$this->to,
+			$this->object,
+			str_replace("\n", '<br>', $this->content),
+			implode("\r\n", $headers)
+		);
+
+		if($sended) echo 'success';
+		else echo 'error';
 	}
 }

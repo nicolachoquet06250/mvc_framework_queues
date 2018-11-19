@@ -16,9 +16,11 @@ $email = [
 $nb_envois = $_POST['nb_envois'];
 
 $cmp = 0;
+$max = intval($nb_envois);
 
-while ($cmp < $nb_envois) {
+while ($cmp < $max) {
 	$queue_email_sender->send($email);
+	$cmp++;
 }
 
 echo json_encode(

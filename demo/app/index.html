@@ -26,11 +26,12 @@
             let $form = $('#email_form');
             $form.on('submit', e => {
                 e.preventDefault();
+
                 let $from = $('#email_from').val();
                 let $to = $('#email_to').val();
                 let $content = $('#email_content').val();
                 let $object = $('#email_object').val();
-                let $nb_envois = $('#nb_envois');
+                let $nb_envois = $('#nb_envois').val();
 
                 $.ajax({
                     url: $form.attr('action'),
