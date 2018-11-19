@@ -13,7 +13,6 @@ class EmailReceiver extends QueueReceiver {
 	 * @inheritdoc
 	 */
 	public function run($callback = null) {
-		$callback = !is_null($callback) ? $callback : __CLASS__.'::run_callback';
-		parent::run($callback);
+		parent::run($this->get_callback($callback));
 	}
 }

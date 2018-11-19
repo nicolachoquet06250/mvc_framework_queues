@@ -9,6 +9,10 @@ class QueueReceiver {
 	protected $element_except_path = __DIR__.'/../classes';
 	public $element_path = __DIR__.'/../demo/classes/elements';
 
+	protected function get_callback($callback) {
+		return !is_null($callback) ? $callback : __CLASS__.'::run_callback';
+	}
+
 	protected function get_array_content() {
 		$queue_json = json_decode(file_get_contents($this->queues_path.'/'.$this->queue_file));
 		return $queue_json;
