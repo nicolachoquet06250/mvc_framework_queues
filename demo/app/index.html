@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test form email</title>
+</head>
+    <body>
+        <form id="email_form" action="index.php" method="post">
+            <input type="hidden" value="nicolachoquet06250@gmail.com" id="email_from" />
+            <input type="text" placeholder="Objet" id="email_object" />
+            <br>
+            <input type="text" placeholder="destinataire" id="email_to" />
+            <br>
+            <textarea id="email_content" placeholder="saisir votre email ici ..."></textarea>
+            <br>
+            <input type="number" id="nb_envois" placeholder="nombre de fois à envoyer" value="1" />
+            <br>
+            <input type="submit" value="Envoyer" />
+        </form>
+    </body>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous"></script>
+    <script>
+        $(window).ready(() => {
+            let $form = $('#email_form');
+            $form.on('submit', e => {
+                e.preventDefault();
+                let $from = $('#email_from').val();
+                let $to = $('#email_to').val();
+                let $content = $('#email_content').val();
+                let $object = $('#email_object').val();
+                let $nb_envois = $('#nb_envois');
+
+                $.ajax({
+                    url: $form.attr('action'),
+                    method: $form.attr('method'),
+                    data: {
+                        to: $to,
+                        from: $from,
+                        content: $content,
+                        object: $object,
+                        nb_envois: $nb_envois
+                    }
+                }).done(data => {
+                    console.log(data);
+                });
+            })
+        });
+    </script>
+</html>
