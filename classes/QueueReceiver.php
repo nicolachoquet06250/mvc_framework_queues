@@ -10,7 +10,7 @@ class QueueReceiver {
 	public $element_path = __DIR__.'/../demo/classes/elements';
 
 	protected function get_callback($callback) {
-		return !is_null($callback) ? $callback : __CLASS__.'::run_callback';
+		return !is_null($callback) ? $callback : get_class($this).'::run_callback';
 	}
 
 	protected function get_array_content() {

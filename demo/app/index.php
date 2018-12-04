@@ -19,7 +19,7 @@ $cmp = 0;
 $max = intval($nb_envois);
 
 while ($cmp < $max) {
-	$queue_email_sender->send($email);
+	$queue_email_sender->enqueue($email);
 	$cmp++;
 }
 

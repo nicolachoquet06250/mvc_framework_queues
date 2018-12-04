@@ -12,7 +12,7 @@ class QueueSender {
 	 * @param string|callable $successCallback
 	 * @param null|string|callable $errorCallback
 	 */
-	public function send($element, $successCallback = null, $errorCallback = null) {
+	public function enqueue($element, $successCallback = null, $errorCallback = null) {
 		if(isset($element[0])) {
 			foreach ($element as $elem) {
 				if($this->add_element_to_queue($elem))
