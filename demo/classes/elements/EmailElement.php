@@ -33,7 +33,7 @@ class EmailElement extends QueueElement {
 		$mail->SMTPSecure = 'tls';
 		$mail->SMTPAuth = true;
 		$mail->Username = $this->from;
-		$mail->Password = '1204NicolasChoquet2669';
+		$mail->Password = '*******';
 		$mail->setFrom($this->from);
 		$mail->addAddress($this->to, 'Nicolas Choquet');
 		$mail->Subject = $this->object;
