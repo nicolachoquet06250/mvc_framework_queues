@@ -14,7 +14,7 @@ class QueueReceiver {
 	}
 
 	protected function get_array_content() {
-		$queue_json = json_decode(file_get_contents($this->queues_path.'/'.$this->queue_file));
+		$queue_json = json_decode(file_get_contents(Queue::$QUEUES_PATH.'/'.$this->queue_file));
 		return $queue_json;
 	}
 
@@ -28,16 +28,20 @@ class QueueReceiver {
 	 */
 	public function run($callback = null) {
 		echo 'La queue `'.$this->name.'` est lancée !'."\n";
+		if($this->locked()) $this->unlock();
 		while (true) {
 			if(!$this->locked()) {
 				if(!$this->is_empty()) {
 					$this->lock();
 					$class = ucfirst($this->name).'Element';
-					$element_name = '\mvc_framework\core\queues\queues_classes\\'.$class;
-					if(!$this->is_file($this->element_path.'/'.$class.'.php')) {
+					$element_name = Queue::$NAMESPACE.$class;
+					if(!$this->is_file(Queue::$ELEMENTS_PATH.'/'.$class.'.php')) {
 						$class = 'QueueElement';
 						$element_name = '\mvc_framework\core\queues\classes\\'.$class;
 						require_once $this->element_except_path.'/'.$class.'.php';
+					}
+					elseif (!class_exists($class)) {
+						require_once Queue::$ELEMENTS_PATH.'/'.$class.'.php';
 					}
 					$array_content = $this->get_array_content()[0];
 					$callback($this, new $element_name($array_content));
